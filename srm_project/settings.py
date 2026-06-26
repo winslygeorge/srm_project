@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-your-secret-key-change-in-production'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['34.122.27.105', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,12 +39,13 @@ ROOT_URLCONF = 'srm_project.urls'
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Alternatively, if you want to be more specific but allow all:
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-#     "http://localhost:8000",
-#     "http://127.0.0.1:8000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://34.122.27.105:8000",
+]
 
 # Allow all methods and headers
 CORS_ALLOW_METHODS = [
