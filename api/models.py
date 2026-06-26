@@ -11,51 +11,79 @@ class Sector(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class DonationType(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class FundraisingFrequency(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class RequiredSubmissionType(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class ApplicationStatus(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class CommunicationType(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True, related_name='tags')
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
+
 
 # ---------- Main Entities ----------
 
@@ -82,6 +110,7 @@ class Donor(models.Model):
     def __str__(self):
         return self.name
 
+
 class FundingOpportunity(models.Model):
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE, related_name='funding_opportunities')
     title = models.CharField(max_length=255)
@@ -100,6 +129,7 @@ class FundingOpportunity(models.Model):
     def __str__(self):
         return f"{self.title} ({self.donor.name})"
 
+
 class GrantApplication(models.Model):
     funding_opportunity = models.ForeignKey(FundingOpportunity, on_delete=models.CASCADE, related_name='applications')
     status = models.ForeignKey(ApplicationStatus, on_delete=models.PROTECT, related_name='applications')
@@ -117,6 +147,7 @@ class GrantApplication(models.Model):
     def __str__(self):
         return f"Application for {self.funding_opportunity.title}"
 
+
 class Communication(models.Model):
     donor = models.ForeignKey(Donor, on_delete=models.CASCADE, related_name='communications')
     type = models.ForeignKey(CommunicationType, on_delete=models.PROTECT, related_name='communications')
@@ -133,6 +164,7 @@ class Communication(models.Model):
     def __str__(self):
         return f"{self.type.name} with {self.donor.name} on {self.date}"
 
+
 class Document(models.Model):
     name = models.CharField(max_length=255)
     file = models.FileField(upload_to='documents/%Y/%m/%d/')
@@ -145,6 +177,7 @@ class Document(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Alert(models.Model):
     title = models.CharField(max_length=255)
@@ -162,6 +195,7 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.title
+
 
 # UserProfile (for roles)
 class UserProfile(models.Model):
